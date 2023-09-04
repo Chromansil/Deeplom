@@ -48,7 +48,7 @@ def list_of_tva (t0, tf, data):
     return time, velocity, acceleration
 
 # Работа с txt файлом исходных данных
-f = open('test.txt', 'r')
+f = open('Data.txt', 'r')
 
 print('Здравствуй, путник! Перед тобой три пути:\n', 'Первым (1) пойдешь - просто посчитаешь,\n', 'Вторым (2) пойдешь - жгуты настоящие намотаешь,\n', 'Третьим (3) пойдешь - аэродинамику добавишь!\n', 'P.S. Коли всё сразу хочешь - жми на ноль (0), умник!\n')
 print('Ответ держи строкой ниже: ')
@@ -110,27 +110,3 @@ fig.savefig("test_plot.png")
 plt.show()
 
 f.close()
-
-# # Печать для промежуточной проверки :)
-# print(line_1)
-# print(line[0:(int(line.find('\t')))])
-# print(int(line.find('\t')))
-
-# print(data_1)
-# print(data[0])
-
-# print('time         : ', time_1)
-# print('velocity     : ', velocity_1)
-# print('acceleration : ', acceleration_1)
-# print('---')
-# print('time         : ', time_2)
-# print('velocity     : ', velocity_2)
-# print('acceleration : ', acceleration_2)
-# print('---')
-# print('time         : ', time_3)
-# print('velocity     : ', velocity_3)
-# print('acceleration : ', acceleration_3)
-
-# print(round((tf), 2))
-# print(round((v), 2))
-# print(round((a), 2))
