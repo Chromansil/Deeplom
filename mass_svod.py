@@ -29,6 +29,6 @@ n = 238.00
 data_1[8], data_1[9], data_1[10] = f'{k0:.2f}', f'{k0*9.8*2:.2f}', f'{0:.2f}'
 line_1 = list_to_str(data_1)
 d.seek(ukaz)
-d.write('\n' + line_1 + '\n')
+d.write(line_1)
 
 d.close()
