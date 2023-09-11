@@ -1,6 +1,21 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+# Определение функции для перевода строки (str) в список (list)
+def str_to_list (line):
+    data = []
+    for i in range(14):
+         data.append(float(line[0:(int(line.find('\t')))]))
+         line = line[(int(line.find('\t')))+1:]
+    return data
+
+# Определение функции для перевода списка (list) в строку (str)
+def list_to_str (data):
+    line = str(data[0])
+    for i in range(13):
+        line = line + ('\t') + f'{float(data[i + 1]):.2f}'
+    return line
+
 # Работа с txt файлом данных о свойствах резинки
 f = open('Protocol.txt', 'r')
 
@@ -31,12 +46,35 @@ k0 = round(((force_new[0]/delta_new[0]) + (force_new[1]/delta_new[1]))/2, -1)
 k = round((9.8 * (force_new[1] - force_new[0]))/(delta_new[1] - delta_new[0]))
 n = round(9.8 * (force_new[0]) - k * delta_new[0])
 
-# Вывод данных (проверка, запись в файл пока не осуществлена)
-num = 2 # n - число жгутов
-print(f'{k0:.2f}')
-print(f'{k0 * 9.8 * num:.2f}')
-print(f'{k * num:.2f}')
-print(f'{n * num:.2f}')
+# Закрытие txt файла данных о свойствах резинки
+f.close()
+
+# Осуществление записи в файл исходных данных для расчета скоростей и ускорений 
+
+# Работа с txt файлом исходных данных
+d = open('Data.txt', 'r+')
+d.readline()
+
+for i in range(3):
+    ukaz = d.tell()
+    line_1 = d.readline()
+    data_1 = str_to_list(line_1)
+    if i == 0:
+        data_1[8], data_1[9], data_1[10] = f'{k0:.2f}', f'{k0*9.8*2:.2f}', f'{0:.2f}'
+    else:
+        data_1[8], data_1[9], data_1[10] = f'{k0:.2f}', f'{k * 2:.2f}', f'{n * 2:.2f}'
+    line_1 = list_to_str(data_1)
+    d.seek(ukaz)
+    d.write(line_1 + '\n')
+
+d.close()
+
+# # Вывод данных (проверка, если запись в файл ещё не осуществлена)
+# num = 2 # n - число жгутов
+# print(f'{k0:.2f}')
+# print(f'{k0 * 9.8 * num:.2f}')
+# print(f'{k * num:.2f}')
+# print(f'{n * num:.2f}')
 
 # Построение графика
 fig, ax = plt.subplots()
@@ -58,5 +96,3 @@ plt.show()
 # # Печать для промежуточной проверки :)
 # print(delta_new)
 # print(force_new)
-
-f.close()
